@@ -7,5 +7,6 @@ describe('index test', () => {
     it('should bundle all its libraries', () => {
         assert.isFunction(parser.getWorkflow);
         assert.isFunction(parser.getNextJobs);
+        assert.isFunction(parser.hasCycle);
     });
 });
