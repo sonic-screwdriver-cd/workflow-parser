@@ -10,7 +10,7 @@ npm install screwdriver-workflow-parser
 ```
 
 ```
-const { getWorkflow, getNextJobs } = require('screwdriver-workflow-parser');
+const { getWorkflow, getNextJobs, hasCycle } = require('screwdriver-workflow-parser');
 
 // Calculate the directed graph workflow from a pipeline config (and parse legacy workflows)
 const workflowGraph = getWorkflow(pipelineConfig, { useLegacy: true });
@@ -26,7 +26,12 @@ const workflowGraph = getWorkflow(pipelineConfig, { useLegacy: true });
 const commitJobsToTrigger = getNextJobs(workflowGraph, { trigger: '~commit' });
 
 // Get a list of job names to start as a result of a pull-request event, e.g. [ 'PR-123:a' ]
-const prJobsToTrigger = getNextJobs(workflowGraph, { trigger: '~pr', prNum: 123 }); 
+const prJobsToTrigger = getNextJobs(workflowGraph, { trigger: '~pr', prNum: 123 });
+
+// Check to see if a given workflow graph has a loop in it. A -> B -> A
+if (hasCycle(workflowGraph)) {
+    console.error('Graph contains a loop.');
+}
 ```
 
 ## Testing
