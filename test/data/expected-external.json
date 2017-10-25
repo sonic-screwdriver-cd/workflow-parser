@@ -1,0 +1,17 @@
+{
+    "nodes": [
+        { "name": "~pr" },
+        { "name": "~commit" },
+        { "name": "main" },
+        { "name": "foo" },
+        { "name": "bar" },
+        { "name": "~sd@1234:foo" }
+    ],
+    "edges": [
+        { "src": "~pr", "dest": "main" },
+        { "src": "~commit", "dest": "main" },
+        { "src": "main", "dest": "foo" },
+        { "src": "~sd@1234:foo", "dest": "bar" },
+        { "src": "foo", "dest": "bar" }
+    ]
+}
