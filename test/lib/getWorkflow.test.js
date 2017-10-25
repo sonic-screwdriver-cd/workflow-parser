@@ -106,6 +106,41 @@ describe('getWorkflow', () => {
         });
     });
 
+    it('should handle logical OR and logial AND requires', () => {
+        const result = getWorkflow({
+            jobs: {
+                foo: { requires: ['~commit'] },
+                A: { requires: ['foo'] },
+                B: { requires: ['foo'] },
+                C: { requires: ['~A', '~B', 'D', 'E'] },
+                D: {},
+                E: {}
+            }
+        });
+
+        assert.deepEqual(result, {
+            nodes: [
+                { name: '~pr' },
+                { name: '~commit' },
+                { name: 'foo' },
+                { name: 'A' },
+                { name: 'B' },
+                { name: 'C' },
+                { name: 'D' },
+                { name: 'E' }
+            ],
+            edges: [
+                { src: '~commit', dest: 'foo' },
+                { src: 'foo', dest: 'A' },
+                { src: 'foo', dest: 'B' },
+                { src: 'A', dest: 'C' },
+                { src: 'B', dest: 'C' },
+                { src: 'D', dest: 'C', join: true },
+                { src: 'E', dest: 'C', join: true }
+            ]
+        });
+    });
+
     it('should handle joins', () => {
         const result = getWorkflow({
             jobs: {
