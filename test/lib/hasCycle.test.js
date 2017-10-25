@@ -84,4 +84,24 @@ describe('hasCyles', () => {
 
         assert.isFalse(hasCycle(workflow));
     });
+
+    it('should return false if workflow contains join but no cycle', () => {
+        const workflow = {
+            nodes: [
+                { name: '~pr' },
+                { name: '~commit' },
+                { name: 'A' },
+                { name: 'B' },
+                { name: 'C' }
+            ],
+            edges: [
+                { src: '~commit', dest: 'A' }, // start
+                { src: '~commit', dest: 'B' }, // start
+                { src: 'A', dest: 'C', join: true }, // join
+                { src: 'B', dest: 'C', join: true } // join
+            ]
+        };
+
+        assert.isFalse(hasCycle(workflow));
+    });
 });
