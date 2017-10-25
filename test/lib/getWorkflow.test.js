@@ -141,6 +141,27 @@ describe('getWorkflow', () => {
         });
     });
 
+    it('should dedupe requires', () => {
+        const result = getWorkflow({
+            jobs: {
+                foo: { requires: ['A', 'A', 'A'] },
+                A: {}
+            }
+        });
+
+        assert.deepEqual(result, {
+            nodes: [
+                { name: '~pr' },
+                { name: '~commit' },
+                { name: 'foo' },
+                { name: 'A' }
+            ],
+            edges: [
+                { src: 'A', dest: 'foo' }
+            ]
+        });
+    });
+
     it('should handle joins', () => {
         const result = getWorkflow({
             jobs: {
