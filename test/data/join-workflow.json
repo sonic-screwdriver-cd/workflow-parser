@@ -1,0 +1,17 @@
+{
+    "nodes": [
+        { "name": "~pr" },
+        { "name": "~commit" },
+        { "name": "main", "id": 1 },
+        { "name": "other_main", "id": 2 },
+        { "name": "foo", "id": 3 },
+        { "name": "bar", "id": 4 }
+    ],
+    "edges": [
+        { "src": "~pr", "dest": "main" },
+        { "src": "~commit", "dest": "main" },
+        { "src": "main", "dest": "foo", "join": true },
+        { "src": "other_main", "dest": "foo", "join": true },
+        { "src": "foo", "dest": "bar" }
+    ]
+}
