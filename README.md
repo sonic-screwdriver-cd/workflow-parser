@@ -1,7 +1,7 @@
 # Workflow Parser
 [![Version][npm-image]][npm-url] ![Downloads][downloads-image] [![Build Status][status-image]][status-url] [![Open Issues][issues-image]][issues-url] [![Dependency Status][daviddm-image]][daviddm-url] ![License][license-image]
 
-> Parses and converts pipeline configuration into a workflow
+> Parses and converts pipeline configuration into a workflow graph
 
 ## Usage
 
