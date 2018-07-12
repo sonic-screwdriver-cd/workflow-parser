@@ -66,5 +66,15 @@ describe('getNextJobs', () => {
         // trigger "bar-foo-prod" branch commit
         assert.deepEqual(getNextJobs(specificBranchWorkflow, { trigger: '~commit:bar-foo-prod' }),
             ['c', 'd']);
+
+        const internalOrWorkflow = {
+            edges: [
+                { src: 'main', dest: 'test' },
+                { src: 'foobar', dest: 'test' }
+            ]
+        };
+
+        assert.deepEqual(getNextJobs(internalOrWorkflow, { trigger: 'main' }), ['test']);
+        assert.deepEqual(getNextJobs(internalOrWorkflow, { trigger: 'foobar' }), ['test']);
     });
 });
