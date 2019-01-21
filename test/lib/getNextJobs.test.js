@@ -36,7 +36,27 @@ describe('getNextJobs', () => {
             trigger: '~pr',
             prNum: '123',
             prChain: true
-        }), ['main']);
+        }),
+        [
+            'PR-123:main',
+            'PR-123:foo',
+            'PR-123:bar'
+        ]);
+        // trigger after job "PR-123:main" with prChain
+        assert.deepEqual(getNextJobs(WORKFLOW, {
+            trigger: 'PR-123:main',
+            prChain: true
+        }), ['PR-123:foo']);
+        // trigger after job "PR-123:foo" with prChain
+        assert.deepEqual(getNextJobs(WORKFLOW, {
+            trigger: 'PR-123:foo',
+            prChain: true
+        }), ['PR-123:bar']);
+        // trigger after job "PR-123:var" with prChain
+        assert.deepEqual(getNextJobs(WORKFLOW, {
+            trigger: 'PR-123:bar',
+            prChain: true
+        }), []);
 
         const parallelWorkflow = {
             edges: [
