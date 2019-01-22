@@ -37,11 +37,7 @@ describe('getNextJobs', () => {
             prNum: '123',
             prChain: true
         }),
-        [
-            'PR-123:main',
-            'PR-123:foo',
-            'PR-123:bar'
-        ]);
+        ['PR-123:main']);
         // trigger after job "PR-123:main" with prChain
         assert.deepEqual(getNextJobs(WORKFLOW, {
             trigger: 'PR-123:main',
