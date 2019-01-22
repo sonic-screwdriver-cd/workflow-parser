@@ -39,7 +39,9 @@
     "eslint-config-screwdriver": "^3.0.0",
     "jenkins-mocha": "^6.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "screwdriver-data-schema": "^18.39.2"
+  },
   "release": {
     "debug": false,
     "verifyConditions": {
